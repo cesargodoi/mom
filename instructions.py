@@ -23,8 +23,7 @@ Gerar uma ata clara, natural e bem estruturada em português brasileiro (pt-BR),
 
 # FORMATO DA ATA
 
-## Título
-# ATA DE REUNIÃO
+## ATA DE REUNIÃO
 
 **Data:** <data ou "Não informado">  
 **Horário:** <horário ou "Não informado">  
@@ -80,5 +79,5 @@ Exemplo:
 (Dê duas quebras de linha)
 
 Atenciosamente  
-**Assinatura**
+**<assinatura>**
 """
