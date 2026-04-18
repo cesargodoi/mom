@@ -8,10 +8,20 @@ from agno.models.openai import OpenAIChat
 from agno.tools import tool
 from dotenv import load_dotenv
 
-from audio2text import run_transcription
-from instructions import circle_meeting
+from services import load_or_transcribe
 
 load_dotenv()
+
+PROMPT_DIR = Path(__file__).parent / "prompts"
+
+
+def get_prompt(name: str) -> str:
+    path = PROMPT_DIR / f"{name}.md"
+
+    if not path.exists():
+        raise FileNotFoundError(f"Prompt '{name}' não encontrado")
+
+    return path.read_text(encoding="utf-8").strip()
 
 
 def save_markdown(
@@ -37,12 +47,12 @@ def clean_markdown(text: str) -> str:
 
 
 @tool
-def transcribe_audios(audio_folder: str = "audios", title: str = "") -> dict:
+def get_text(title: str = "") -> dict:
     """
-    Transcribe all audio files inside the 'audios' folder
-    and return the transcriptions
+    Load text or transcribe all audio files inside the 'audios' folder.
+    and return the text to Agent
     """
-    return run_transcription(audio_folder=audio_folder, title=title)
+    return load_or_transcribe(title=title)
 
 
 def main():
@@ -54,15 +64,15 @@ def main():
         id="mom",
         name="Minutes of Meeting",
         role="Elabore uma ATA baseada no texto extraído de um áudio",
-        instructions=circle_meeting,
+        instructions=get_prompt("circle_meeting"),
         # model=Groq(id="llama-3.3-70b-versatile", temperature=0.7),
         model=OpenAIChat(id="gpt-5.4-nano", temperature=0.7),
-        tools=[transcribe_audios],
+        tools=[get_text],
     )
 
     response = agent.run(
         f"""
-        Use a ferramenta transcribe_audios, usando o titulo: "{title.strip()}".
+        Use a ferramenta get_text, usando o titulo: "{title.strip()}".
         Depois gere uma ATA DE REUNIÃO em markdown usando a assinatura: 
         "{assign.strip()}".
         """
