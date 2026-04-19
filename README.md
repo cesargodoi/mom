@@ -5,7 +5,8 @@ Este projeto automatiza o processo de criação de atas de reunião (ATAs) a par
 ## 🚀 Funcionalidades
 
 - **Transcrição Segmentada:** Divide arquivos de áudio grandes em "chunks" menores para garantir uma transcrição estável e eficiente via Google Web Speech API.
-- **Agente de IA Especialista:** Utiliza o framework **Agno** (com modelos Llama 3 ou GPT) configurado com uma persona de secretário experiente.
+- **Recuperação Inteligente:** Verifica se a transcrição já existe na pasta `texts/` antes de iniciar um novo processamento, otimizando o tempo de execução.
+- **Agente de IA com Ferramentas:** Utiliza o framework **Agno** com suporte a ferramentas customizadas para extração de contexto e geração de atas.
 - **Formatação Humanizada:** Gera documentos em Markdown seguindo regras rigorosas de linguagem natural, evitando termos robóticos.
 - **Gestão de Artefatos:** Organiza automaticamente os arquivos em pastas separadas:
   - `audios/`: Local para colocar os arquivos de entrada.
@@ -17,7 +18,7 @@ Este projeto automatiza o processo de criação de atas de reunião (ATAs) a par
 
 - **Python 3.10+**
 - **Agno:** Framework para criação de agentes de IA baseados em ferramentas.
-- **Groq/OpenAI:** LLMs para processamento de texto e geração da ata.
+- **OpenAI/Groq:** LLMs de última geração (GPT-4/Llama 3) para processamento semântico.
 - **SpeechRecognition:** Para conversão de áudio em texto.
 - **Pydub:** Para manipulação e segmentação de arquivos de áudio (requer FFmpeg).
 - **Python-dotenv:** Para gerenciamento de variáveis de ambiente.
@@ -46,7 +47,7 @@ brew install ffmpeg
    ```bash
    pip install -r requirements.txt
    ```
-   *(Caso não tenha um requirements.txt, instale: `pip install agno pydub SpeechRecognition python-dotenv groq`)*
+   *(Caso não tenha um requirements.txt, instale: `pip install agno openai groq pydub SpeechRecognition python-dotenv`)*
 
 3. Configure suas chaves de API:
    Crie um arquivo `.env` na raiz do projeto:
