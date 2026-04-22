@@ -2,9 +2,9 @@ from datetime import datetime
 from pathlib import Path
 
 from agno.agent import Agent
+from agno.models.groq import Groq
 
-# from agno.models.groq import Groq
-from agno.models.openai import OpenAIChat
+# from agno.models.openai import OpenAIChat
 from agno.tools import tool
 from dotenv import load_dotenv
 
@@ -65,8 +65,8 @@ def main():
         name="Minutes of Meeting",
         role="Elabore uma ATA baseada no texto extraído de um áudio",
         instructions=get_prompt("circle_meeting"),
-        # model=Groq(id="llama-3.3-70b-versatile", temperature=0.7),
-        model=OpenAIChat(id="gpt-5.4-nano", temperature=0.7),
+        model=Groq(id="llama-3.3-70b-versatile", temperature=0.7),
+        # model=OpenAIChat(id="gpt-5.4-nano", temperature=0.7),
         tools=[get_text],
     )
 

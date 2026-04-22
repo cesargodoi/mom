@@ -1,0 +1,4 @@
+Esta é uma transcription de teste para executar os testes.
+Ela simula o cache de uma transcrição anterior.
+
+Segunda parte da transcription de teste.

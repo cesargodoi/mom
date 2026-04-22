@@ -19,7 +19,8 @@ class Audio2Text:
         audio = AudioSegment.from_file(self.input_path)
         total_length = len(audio)
 
-        output_folder = f"audios/chunks/{self.audio_name}"
+        audio_dir = Path(self.input_path).parent
+        output_folder = audio_dir / "chunks" / self.audio_name
         os.makedirs(output_folder, exist_ok=True)
 
         num_chunks = math.ceil(total_length / self.chunk_length_ms)
