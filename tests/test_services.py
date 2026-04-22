@@ -37,16 +37,6 @@ class TestLoadOrTranscribe:
         assert "file" in result
         assert "transcription de teste" in result["content"]
 
-    def test_load_or_transcribe_excludes_audio_test(self):
-        audio_dir = Path("audios")
-        audio_dir.mkdir(parents=True, exist_ok=True)
-        (audio_dir / "audio_test.ogg").touch()
-
-        result = load_or_transcribe(title="test_excluded", audio_folder="audios")
-
-        assert "content" in result
-        assert result["content"] == ""
-
     def test_load_or_transcribe_no_audio_files(self):
         audio_dir = Path("audios")
         audio_dir.mkdir(parents=True, exist_ok=True)

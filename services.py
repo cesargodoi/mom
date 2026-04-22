@@ -23,24 +23,24 @@ def load_or_transcribe(audio_folder="audios", title=None) -> dict:
         return {"file": str(text_file_path), "content": " | ".join(parts)}
 
     text_file_path.parent.mkdir(parents=True, exist_ok=True)
-    text_file_path.touch(exist_ok=True)
-
-    EXCLUDE_FILES = os.getenv("EXCLUDE_AUDIO_FILES", "audio_test.ogg").split(",")
 
     audio_files = [
         file
         for file in os.listdir(audio_folder)
         if os.path.isfile(os.path.join(audio_folder, file))
-        and file not in EXCLUDE_FILES
     ]
+
+    if not audio_files:
+        return {"file": str(text_file_path), "content": ""}
 
     parts = []
 
     for file in audio_files:
         text = Audio2Text(f"{audio_folder}/{file}")
         transcription = text.transcribe()
-        text.write_to_file(str(text_file_path))
         parts.append(transcription.strip())
+
+    text_file_path.write_text("\n\n".join(parts), encoding="utf-8")
 
     chunks_folder = Path(audio_folder) / "chunks"
     if chunks_folder.exists():

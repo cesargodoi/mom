@@ -4,13 +4,24 @@ __pycache__/
 build/
 dist/
 wheels/
-audios/
 *.egg-info
-texts/*.txt
-moms/*.md
 .vscode/
 uv.lock
 
-# Virtual environments
-.venv
+# Dependencies
 .env
+
+# Local data
+audios/
+texts/*.txt
+moms/*.md
+
+# Virtual environments
+.venv/
+
+# Testing
+.coverage
+htmlcov/
+coverage.xml
+.pytest_cache/
+.tox/
