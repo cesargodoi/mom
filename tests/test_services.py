@@ -68,9 +68,6 @@ class TestLoadOrTranscribe:
         temp_path = Path(self.temp_dir)
         audio_dir = temp_path / "audios"
         audio_dir.mkdir(parents=True, exist_ok=True)
-        chunks_dir = audio_dir / "chunks"
-        chunks_dir.mkdir(parents=True, exist_ok=True)
-        (chunks_dir / "dummy.txt").touch()
 
         audio_file = audio_dir / "real_audio.ogg"
         audio_file.write_bytes((FIXTURE_DIR / "audio_test.ogg").read_bytes())
@@ -79,4 +76,4 @@ class TestLoadOrTranscribe:
 
         assert "content" in result
         assert "file" in result
-        assert not chunks_dir.exists()
+        assert len(result["content"]) > 0

@@ -1,5 +1,4 @@
 import os
-import shutil
 from datetime import datetime
 from pathlib import Path
 
@@ -41,9 +40,5 @@ def load_or_transcribe(audio_folder="audios", title=None) -> dict:
         parts.append(transcription.strip())
 
     text_file_path.write_text("\n\n".join(parts), encoding="utf-8")
-
-    chunks_folder = Path(audio_folder) / "chunks"
-    if chunks_folder.exists():
-        shutil.rmtree(chunks_folder)
 
     return {"file": str(text_file_path), "content": " | ".join(parts)}
